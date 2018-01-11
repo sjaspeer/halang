@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/last.jpg' %});">
+    <div class="desc animate-box">
+      <h2>Create an account and share your datasets with us</h2>
+      <span>Fill in the form below to start</a></span>
+    </div>
+  </div>
+
+</div>
+<br>
+<center><h2>Sign Up Form</h2></center>
+<form action="{% url 'datasets:signup' %}" method="post" id="SignUpForm" role="form" style="border:1px solid #ccc">
+  {% csrf_token %}
+  <div class="container">
+
+    <input type="text" placeholder="Enter your Username" id="id_{{ form.username.name }}" name="{{ form.username.name }}" required>
+
+    <input type="text" placeholder="Enter your First Name" id="id_{{ form.first_name.name }}" name="{{ form.first_name.name }}" required>
+
+    <input type="text" placeholder="Enter your Last Name" id="id_{{ form.last_name.name }}" name="{{ form.last_name.name }}" required>
+
+    <input type="email" placeholder="Enter your Email" id="id_{{ form.email.name }}" name="{{ form.email.name }}" required>
+
+    <input type="password" placeholder="Enter your Password" id="id_{{ form.password1.name }}" name="{{ form.password1.name }}" required>
+
+    <input type="password" placeholder="Repeat your Password for confirmation" id="id_{{ form.password2.name }}" name="{{ form.password2.name }}" required>
+
+    {{ field.errors }}
+
+    <div class="clearfix">
+      <center><button type="submit" class="btn waves-effect waves-light red darken-1">Sign Up</button>
+      </div>
+    </div>
+  </form>
+  {% endblock %}

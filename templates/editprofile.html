@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/last.jpg' %});">
+    <div class="desc animate-box">
+      <h2>Edit Profile</h2>
+      <span>Change your current profile and provide valid information for future purposes.</a></span>
+    </div>
+  </div>
+
+</div>
+<br>
+<center><h2>Edit Profile Form</h2></center>
+<form action="{% url 'datasets:editprofile' user.id %}" method="post" id="SignUpForm" role="form" style="border:1px solid #ccc">
+  {% csrf_token %}
+  <div class="container">
+    <h2>First Name</h2>
+    <input type="text" value="{{ user_form.first_name.value }}" id="id_{{ user_form.first_name.name }}" name="{{ user_form.first_name.name }}" required>
+    <br><br>
+    <h2>Last Name</h2>
+    <input type="text" value="{{ user_form.last_name.value }}" id="id_{{ user_form.last_name.name }}" name="{{ user_form.last_name.name }}" required>
+    <br><br>
+    <h2>Email</h2>
+    <input type="email" value="{{ user_form.email.value }}" id="id_{{ user_form.email.name }}" name="{{ user_form.email.name }}" required>
+    <br><br>
+    <h2>Biography</h2>
+    <input type="text" value="{{ profile_form.bio.value }}" id="id_{{ profile_form.bio.name }}" placeholder="Short description of yourself" name="{{ profile_form.bio.name }}" required>
+    <br><br>
+    <h2>Location</h2>
+    <input type="text" value="{{ profile_form.location.value }}" id="id_{{ profile_form.location.name }}" placeholder="Where you are currently located ex. Davao City" name="{{ profile_form.location.name }}" required>
+    <br><br>
+    <h2>Birth Date</h2>
+    <input type="text" value="{{ profile_form.birth_date.value|date:'SHORT_DATE_FORMAT' }}" id="id_{{ profile_form.birth_date.name }}" placeholder="Follow the Format: MM/DD/YYYY ex. 11/07/1998" name="{{ profile_form.birth_date.name }}" required>
+    <br><br>
+    <h2>Associated with</h2>
+    <input type="text" value="{{ profile_form.associated_with.value }}" id="id_{{ profile_form.associated_with.name }}" placeholder="Organization or School Name ex. University of the Immacualate Conception" name="{{ profile_form.associated_with.name }}" required>
+
+    <div class="clearfix">
+      <center><button type="submit" class="btn waves-effect waves-light red darken-1">Save Changes</button>
+      </div>
+    </div>
+  </form>
+  {% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+<!-- STYLE OF SEARCH --> <style>   
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+</style>
+
+<!-- start of banner-->
+<div class="fh5co-hero fh5co-hero-2">
+ <div class="fh5co-overlay"></div>
+ <div class="fh5co-cover fh5co-cover_2 text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/sudy.jpg' %});">
+  <div class="desc animate-box">
+    <h2>Our currently available datasets</h2>
+    <span>Below are datasets inputted by multiple users.</a></span>
+  </div>
+</div>
+</div>
+<!-- end of banner-->
+<!-- end:header-top -->
+<div id="fh5co-work-section">
+ <div class="container">
+  <div class="row">
+   <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+    <h3>Browse Datasets</h3>
+  </div>
+</div>
+</div>
+
+<!-- SEARCH -->
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+
+
+<!-- START OF DATASETS -->	
+<div class="container">
+  <div class="row">
+   <main role="main" id="maincontent" class="content">
+     <!-- Start of Title and Logo-->
+     <div class="content-inner ">
+       <ul id="ulm">   <!-- FOR SEARCH -->
+         {% if all_dataset %}
+         {% for dataset in all_dataset %}
+         <li class="datasetslist-dataset">
+          <a class="datasetslist-dataset-title-link" href="{% url 'datasets:datadetail' dataset.id %}">
+            <img src="{% static 'images/pic6.jpg' %}" alt="Smiley face" style="float:left;height:130px;">
+
+            <h3 class="datasetslist-dataset-title">{{ dataset.DataSet_Title }}</h3></a>
+            <div class="datasetslist-dataset-files-icon">
+              <div class="dataset-icon">  </a>
+              </div>
+            </div>
+            <div class="datasetslist-dataset-metadata">
+              <div class="contributor-list-container datasetslist-dataset-contributors">
+                <ul class="contributor-list">
+                 <li class="contributor-list-contributor" data-component="contributorTooltip">
+                  <a href="{% url 'datasets:profile' dataset.DataSet_Poster.id %}">{{ dataset.DataSet_Poster.get_full_name }}</a>
+
+                </li>
+              </ul> 
+            </div>
+            <p>
+              <span class="datasetslist-dataset-publish-date">{{ dataset.DataSet_Posted }} | Status: {{ dataset.DataSet_Status }}</span>
+            </p>
+
+            <div class="datasetslist-dataset-description">
+              {{ dataset.DataSet_Description|slice:":143" }}...
+            </div>
+          </div>
+          <br>
+          <!-- END 1st DATASET -->
+          {% endfor %}
+          {% else %}
+          <h3>We don't have any Datasets as of now... </h3>
+          {% endif %}
+        </div>
+      </li>
+    </div></div>
+  </li>
+
+
+</ul> <!-- END -->
+
+<!-- END fh5co-work-section -->
+
+
+</div>
+<!-- END fh5co-wrapper -->
+
+<!-- jQuery -->
+<script>
+  function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("ulm");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+
+      }
+    }
+  }
+</script>
+
+{% endblock %}

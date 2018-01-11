@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+
+
+		<div class="fh5co-hero fh5co-hero-2">
+			<div class="fh5co-overlay"></div>
+			<div class="fh5co-cover fh5co-cover_2 text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/endemic4' %}.jpg);">
+				<div class="desc animate-box">
+					<h2>ABOUT US</h2>
+					<span><a>What We Do</a></span>
+				</div>
+			</div>
+		</div>
+		<!-- end:header-top -->
+		<!-- START -->
+		<div id="fh5co-about">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>About Us</h3>
+						<p>We are researchers from the University of the Immaculate Conception that are tasked to create a portal for an Datasets Building and have an API Endpoint for each dataset for the endemic Birds found in Mindanao.</p>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row row-bottom-padded-md">
+					<div class="col-md-12 animate-box">
+						<figure>
+							<img src="{% static 'images/uic.jpg' %}" alt="Free HTML5 Bootstrap Template by FREEHTML5.co" class="img-responsive">
+						</figure>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 animate-box">
+						<center><h3>University Of the Immaculate Conception</h3></center>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END fh5co-about -->
+		<!-- fh5co-content-section -->
+		<div id="fh5co-services-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>What We Do</h3>
+						
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row text-center">
+					<div class="col-md-4 col-sm-4">
+						<div class="services animate-box">
+							<span><i class="icon-browser"></i></span>
+							<h3>Purpose</h3>
+							<p>Empowering other researchers to share their datasets to other researchers for future references.</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="services animate-box">
+							<span><i class="icon-mobile"></i></span>
+							<h3>Control</h3>
+							<p>Allow the creators of datasets to manage their datasets while also allowing the back-end to deal with auto generated csv and json files, ready to download.</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="services animate-box">
+							<span><i class="icon-tools"></i></span>
+							<h3>Scope and Limitation</h3>
+							<p>The researchers of study have limited their research to endemic Birds. They are particular that they are only in the Mindanao Region. </p>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="services animate-box">
+							<span><i class="icon-globe"></i></span>
+							<h3>Secure</h3>
+							<p>A secure online repository with features that allow other researchers to get data from their chosen sets.</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="services animate-box">
+							<span><i class="icon-search"></i></span>
+							<h3>Access Point</h3>
+							<p>To create a portal and api endpoint for other people to access to and or from.</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="services animate-box">
+							<span><i class="icon-cloud"></i></span>
+							<h3>Availability</h3>
+							<p>Make datasets downloadable as JSON and CSV.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END fh5co-services-section -->
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/last.jpg' %});">
+    <div class="desc animate-box">
+      <h2>You have signed out from our site.</h2>
+      <span>Below are options to take you back to our home or sign back in.</a></span>
+    </div>
+  </div>
+
+</div>
+<br>
+<center><h2>You have successfully Signed Out.</h2></center>
+<main role="main" id="maincontent" class="content">
+  <div class="content-inner ">
+    <center><a href="{% url 'datasets:index' %}">Back to Home.</a></center>
+    <center><a href="{% url 'datasets:signin' %}">Sign In.</a></center>
+  </div>
+</main>
+{% endblock %}

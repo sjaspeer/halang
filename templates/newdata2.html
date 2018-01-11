@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/pic69.jpg' %});">
+    <div class="desc animate-box">
+      <h2>Enter Your Datasets</h2>
+      <span>Upload and share your research data for free, just fill up the form below to get started.</span>
+    </div>
+  </div>
+</div>
+<br>
+<center><h2>New Dataset Form Part 2</h2></center>
+<form action="." method="post" style="border:1px solid #ccc" role="form">
+  {% csrf_token %}
+  <div class="container">
+    {% for form in forms %}
+    <label><b></b></label>
+    <input type="text" placeholder="Column Name no.{{ forloop.counter }}" id="id_{{ form.cname.name }}" name="{{ form.cname.name }}" required>
+    {% endfor %}
+    <div class="clearfix">
+      <center><button type="submit" class="btn waves-effect waves-light red darken-1">Submit</button>
+      </div>
+    </div>
+    {% endblock %}

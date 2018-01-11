@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/last.jpg' %});">
+    <div class="desc animate-box">
+      <h2>Sign in using your account now</h2>
+      <span>Fill in the form below to sign in.</a></span>
+    </div>
+  </div>
+</div>
+<br>
+<center><h2>Sign In Form</h2></center>
+<form action="{% url 'datasets:signin' %}" method="post" style="border:1px solid #ccc" role="form">
+  {% csrf_token %}
+  <div class="container">
+   <label><b></b></label>
+   <input type="text" placeholder="Enter Username" id="id_{{ form.username.name }}" name="{{ form.username.name }}" required>
+
+   <label><b></b></label>
+   <input type="password" placeholder="Enter Password" id="id_{{ form.password.name }}" name="{{ form.password.name }}" required>
+
+   <div class="clearfix">
+    <center><button type="submit" class="btn waves-effect waves-light red darken-1">Sign In</button>
+    </div>
+  </div>
+
+  {% endblock %}

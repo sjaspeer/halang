@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/last.jpg' %});">
+    <div class="desc animate-box">
+      <h2>Edit Dataset</h2>
+      <span>Change your current settings of this dataset.</a></span>
+    </div>
+  </div>
+
+</div>
+<br>
+<center><h2>Edit Dataset Form</h2></center>
+<form action="{% url 'datasets:editdataset' dataset.id %}" method="post" id="SignUpForm" role="form" style="border:1px solid #ccc">
+  {% csrf_token %}
+  <div class="container">
+    <h2>Dataset Title</h2>
+    <input type="text" value="{{ form.DataSet_Title.value }}" id="id_{{ form.DataSet_Title.name }}" name="{{ form.DataSet_Title.name }}" required>
+    <br><br>
+    <h2>Dataset Description</h2>
+    <input type="text" value="{{ form.DataSet_Description.value }}" id="id_{{ form.DataSet_Description.name }}" name="{{ form.DataSet_Description.name }}" required>
+
+    <div class="clearfix">
+      <center><button type="submit" class="btn waves-effect waves-light red darken-1">Save Changes</button>
+      </div>
+    </div>
+  </form>
+  {% endblock %}

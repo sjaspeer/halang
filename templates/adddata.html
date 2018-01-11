@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/pic69.jpg' %});">
+    <div class="desc animate-box">
+      <h2>Enter a new record for this dataset</h2>
+      <span>Fill in the form below to add a new record.</a></span>
+    </div>
+  </div>
+
+</div>
+<br>
+<center><h2>Add Record Form</h2></center>
+<form action="." method="post" style="border:1px solid #ccc" role="form">
+  <div class="container">
+    <p>This dataset has {{ count }} columns where you must add data in, following the pattern: {{ colnames }}</p>
+    {% csrf_token %}
+    {% for form in forms %}
+    <input type="text" placeholder="Data for '{{ cname.pop }}'' Column" id="id_{{ form.dvalue.name }}" name="{{ form.dvalue.name }}" required>
+    {% endfor %}
+
+    <div class="clearfix">
+      <center><button type="submit" class="btn waves-effect waves-light red darken-1">Submit</button>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

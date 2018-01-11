@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+}{% block body %}
+<!-- STYLE OF table --><style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+
+</style>
+
+<!-- start of banner-->
+<div class="fh5co-hero fh5co-hero-2">
+ <div class="fh5co-overlay"></div>
+ <div class="fh5co-cover fh5co-cover_2 text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/sudy.jpg' %});">
+  <div class="desc animate-box">
+    <h2>{{ dataset.DataSet_Title }}</h2>
+    <span>by {{ dataset.DataSet_Poster.get_full_name }} on {{ dataset.DataSet_Posted }}</a></span>
+  </div>
+</div>
+</div>
+<!-- end of banner-->
+<!-- end:header-top -->
+<div id="fh5co-work-section">
+ <div class="container">
+  <div class="row">
+   <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+    <h3>Dataset's Information</h3>
+    {% if user == dataset.DataSet_Poster or request.user.is_superuser %}
+    <a href="{% url 'datasets:editdataset' dataset.id %}">
+      <button class="btn btn-primary" type="submit">Edit Dataset</button>
+    </a>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+<!-- START OF DATASET -->   
+
+<div class="container">
+  <div class="row">
+    <main role="main" id="maincontent" class="content">
+     <!-- Start of Title and Logo-->
+     <div class="content-inner ">
+      <ul id="ulm">
+
+        <li class="datasetslist-dataset">
+          <a class="datasetslist-dataset-title-link" href="{% url 'datasets:datadetail' dataset.id %}">
+            <img src="{% static 'images/pic6.jpg' %}" alt="Smiley face" style="float:left;height:130px;">
+            <h3 class="datasetslist-dataset-title">{{ dataset.DataSet_Title }}</h3></a>
+            <div class="datasetslist-dataset-files-icon">
+              <div class="dataset-icon">  </a>
+              </div>
+            </div>
+
+            <div class="datasetslist-dataset-metadata">
+              <div class="contributor-list-container datasetslist-dataset-contributors">
+                <ul class="contributor-list">
+                 <li class="contributor-list-contributor" data-component="contributorTooltip">
+                  <a href="{% url 'datasets:profile' dataset.DataSet_Poster.id %}">{{ dataset.DataSet_Poster.get_full_name }}</a>
+
+                </li>
+              </ul> 
+            </div>
+            <p>
+              <span class="datasetslist-dataset-publish-date">{{ dataset.DataSet_Posted }} | Status: {{ dataset.DataSet_Status }}
+                {% if request.user.is_superuser and dataset.DataSet_Status == 'Not yet Approved' %}
+                <button onclick="approveDataSet()" class="btn btn-primary">Approve this Dataset</button>
+                {% endif %}
+              </span>
+            </p>
+
+            <div class="datasetslist-dataset-description">
+              <p>{{ dataset.DataSet_Description }}</p>
+              <p>This dataset has {{ count2 }} columns, namely the following: {{ colnames }}</p>
+              <p>This dataset currently has {{ count }} records. The records are as the format: {{ rows|slice:":1" }}</p>
+            </div>
+          </div>
+          <!-- End Of 1st Dataset-->
+        </div>
+      </li>
+    </div></div>
+  </li>
+
+</ul> <!-- END OF DATA -->
+<!-- END fh5co-work-section -->
+</div>
+
+{% if user == dataset.DataSet_Poster or request.user.is_superuser %}
+<center>
+  <a href="{% url 'datasets:adddata'  dataset.id %}">
+    <button class="btn btn-primary" type="submit">Add Record</button>
+  </a>
+</center>
+{% endif %}
+
+<center><!-- TABLES-->
+  <a href="{% url 'datasets:downloadCsv' dataset.id %}" download>
+    <button class="btn btn-primary">Get CSV</button>
+  </a>
+
+  <a href="{% url 'datasets:dataset-detail' dataset.id %}">
+    <button class="btn btn-primary">Goto API Endpoint</button>
+  </a>
+
+  <a href="{% url 'datasets:downloadJson' dataset.id %}" download>
+    <button class="btn btn-primary">Get JSON</button>
+  </a>
+</center>
+<style>
+  table,  th {
+
+   border-collapse: separate;
+   border-spacing: 15px;
+ }
+</style>
+
+<br><br><br>
+<div class="container">
+  <center><table style="width:80%">
+    <thead>
+      <tr>
+        {% for i in colnames %}
+        <th><center>{{i}}</center></th>
+        {% endfor %}
+        {% if user == dataset.DataSet_Poster or request.user.is_superuser %}
+        <th><center>Actions</center></th>
+        {% endif %}
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for i in rows %}
+      <tr>
+        {% for o in i %}
+        <td><center>{{o}}</center></td>
+        {% endfor %}
+        <td>
+          {% if user == dataset.DataSet_Poster or request.user.is_superuser %}
+          <center>
+            <a href="{% url 'datasets:editrecord'  dataset.id forloop.counter %}">
+              <button class="btn btn-primary">Edit Record</button>
+            </a>
+          </center>
+          <center>
+            <a href="{% url 'datasets:deleterecord'  dataset.id forloop.counter %}">
+              <button class="btn btn-primary">Delete Record</button>
+            </a>
+          </center>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </center>
+  <br>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+  $(document).ready(function(){
+    var DataSetUrl = '/api/datasets/{{ dataset.id }}/';
+    var datasetId = '{{ dataset.id }}';
+    var json = '{{json}}';
+    json = json.replace(/&#39;/g, "'")
+    json = json.replace(/&quot;/g, '"').slice(2, -2)
+    var params = {
+      Data: "" + json,
+      jsonifiedData_url: "https://hatopendatacatalog.herokuapp.com/data/{{ dataset.id }}/download/json/",
+      csvfiedData_url: "https://hatopendatacatalog.herokuapp.com/data/{{ dataset.id }}/download/csv/"
+    };
+
+    $.ajax({
+      type : 'PATCH',
+      url : DataSetUrl,
+      data : JSON.stringify(params),
+      contentType: 'application/json',
+      beforeSend: function(xhr, settings) {
+        xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+      },
+      success : function(json) {
+      },
+    });
+  });
+</script>
+
+<script>
+  function approveDataSet(){
+    var approvedatasetUrl = '/api/datasets/{{ dataset.id }}/';
+    if (confirm('Are you sure you want to approve this dataset?')){
+      var params = {
+        DataSet_Status: "Approved"
+      };
+      $.ajax({
+        type: 'PATCH',
+        url: approvedatasetUrl,
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+        },
+        success : function(json) {
+          alert('Dataset is now approved!');
+          window.location = '/data/{{ dataset.id }}';
+        },
+      });
+    }
+  }
+</script>
+
+{% endblock %}

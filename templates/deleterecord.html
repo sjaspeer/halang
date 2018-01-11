@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/last.jpg' %});">
+    <div class="desc animate-box">
+    <h2>You are currently trying to delete the record: {{ rows }}</h2>
+      <span>Make your choice below to delete or not the record.</a></span>
+    </div>
+  </div>
+
+</div>
+<br>
+<center><h2>Delete Record Form</h2></center>
+<form action="." method="post" style="border:1px solid #ccc" role="form">
+  <div class="container">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h2 class="section-heading header text_b">Are you sure you want to delete the record:  {{ rows }}</h2>
+    <div class="clearfix">
+      <center><button type="submit" class="btn btn-primary">Yes</button></center>
+      </div>
+    </div>
+  </div>
+  </form>
+  <center><button class="btn btn-primary" onClick="javascript:history.go(-1);">No</button></center>
+  <br><br>
+
+{% endblock %}
